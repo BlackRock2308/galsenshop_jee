@@ -1,0 +1,17 @@
+sn\ept\dic2\serviceweb\galsenshop\entities\LigneArticle.class
+sn\ept\dic2\serviceweb\galsenshop\entities\LigneArticlePK.class
+sn\ept\dic2\serviceweb\galsenshop\entities\Facture.class
+sn\ept\dic2\serviceweb\galsenshop\init\InitCategorie.class
+sn\ept\dic2\serviceweb\galsenshop\facades\LigneArticleFacade.class
+sn\ept\dic2\serviceweb\galsenshop\facades\ClientFacade.class
+sn\ept\dic2\serviceweb\galsenshop\entities\Categorie.class
+sn\ept\dic2\serviceweb\galsenshop\entities\Client.class
+sn\ept\dic2\serviceweb\galsenshop\facades\AbstractFacade.class
+sn\ept\dic2\serviceweb\galsenshop\facades\CategorieFacade.class
+sn\ept\dic2\serviceweb\galsenshop\facades\ArticleFacade.class
+sn\ept\dic2\serviceweb\galsenshop\resources\CategoryRessource.class
+sn\ept\dic2\serviceweb\galsenshop\entities\Article.class
+sn\ept\dic2\serviceweb\galsenshop\facades\FactureFacade.class
+sn\ept\dic2\serviceweb\galsenshop\JAXRSConfiguration.class
+sn\ept\dic2\serviceweb\galsenshop\ApiConfig.class
+sn\ept\dic2\serviceweb\galsenshop\resources\JavaEE8Resource.class
