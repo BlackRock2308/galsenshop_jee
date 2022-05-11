@@ -7,6 +7,7 @@ package sn.ept.dic2.serviceweb.galsenshop.resources;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -84,6 +85,23 @@ public class CategoryRessource {
         categorieFacade.edit(cat);
 
         return cat;
+
+    }
+    
+        /**
+     * ************* Delete existing category *********************** *
+     */
+    @DELETE
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/{code}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response deleteCategorie(@PathParam("code") String code) {
+
+        Categorie cat = getCategorieById(code);
+        
+        categorieFacade.remove(cat);
+
+        return Response.noContent().build();
 
     }
 
