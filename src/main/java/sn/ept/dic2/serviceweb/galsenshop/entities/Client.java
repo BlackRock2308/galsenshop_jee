@@ -28,17 +28,17 @@ public class Client implements Serializable {
     @Column(name = "NOM", length = 45)
     private String nom;
     @Column(name = "ADRESSE", length = 45)
-    private String Adresse;
+    private String adresse;
     @Column(name = "TELEPHONE", length = 45)
     private String telephone;
     
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Collection<Facture> factures;
 
-    public Client(Integer id, String nom, String Adresse, String telephone, Collection<Facture> factures) {
+    public Client(Integer id, String nom, String adresse, String telephone, Collection<Facture> factures) {
         this.id = id;
         this.nom = nom;
-        this.Adresse = Adresse;
+        this.adresse = adresse;
         this.telephone = telephone;
         this.factures = factures;
     }
@@ -63,11 +63,11 @@ public class Client implements Serializable {
     }
 
     public String getAdresse() {
-        return Adresse;
+        return adresse;
     }
 
-    public void setAdresse(String Adresse) {
-        this.Adresse = Adresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getTelephone() {
@@ -118,7 +118,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", nom=" + nom + ", Adresse=" + Adresse + ", telephone=" + telephone + ", factures=" + factures + '}';
+        return "Client{" + "id=" + id + ", nom=" + nom + ", Adresse=" + adresse + ", telephone=" + telephone + ", factures=" + factures + '}';
     }
     
     

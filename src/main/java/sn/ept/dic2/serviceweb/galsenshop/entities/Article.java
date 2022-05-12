@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -31,18 +33,19 @@ public class Article implements Serializable {
     private String unite;
     @Column(name = "QTE_STOCK")
     private Double quantite_stock;
-    
+
     @ManyToOne
+    @JoinColumn(name = "categorie_code", insertable = false, updatable = false)
     private Categorie categorie;
 
-    public Article(String code, String libele, String description, Double prix_unitaire, String unite, Double quantite_stock, Categorie categorie) {
+    public Article(String code, String libele, String description, Double prix_unitaire, String unite, Double quantite_stock) {
         this.code = code;
         this.libele = libele;
         this.description = description;
         this.prix_unitaire = prix_unitaire;
         this.unite = unite;
         this.quantite_stock = quantite_stock;
-        this.categorie = categorie;
+
     }
 
     public Article() {
@@ -96,14 +99,6 @@ public class Article implements Serializable {
         this.quantite_stock = quantite_stock;
     }
 
-    public Categorie getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -128,9 +123,7 @@ public class Article implements Serializable {
 
     @Override
     public String toString() {
-        return "Article{" + "code=" + code + ", libele=" + libele + ", description=" + description + ", prix_unitaire=" + prix_unitaire + ", unite=" + unite + ", quantite_stock=" + quantite_stock + ", categorie=" + categorie + '}';
+        return "Article{" + "code=" + code + ", libele=" + libele + ", description=" + description + ", prix_unitaire=" + prix_unitaire + ", unite=" + unite + ", quantite_stock=" + quantite_stock + '}';
     }
-    
-    
-    
+
 }

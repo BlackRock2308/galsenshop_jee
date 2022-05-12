@@ -32,7 +32,9 @@ public class CategorieFacade extends AbstractFacade<Categorie> {
 
     public List<Categorie> findCategorie(String searchText) {
 
-        String requete = "SELECT c FROM Categorie e WHERE c.libele like '%" + searchText + "%' OR c.description like '%" + searchText + "%'  ORDER BY c.code DESC";
+        // http://localhost:8080/galsenshop/api/categories/search?text=searchText
+        
+        String requete = "SELECT c FROM Categorie c WHERE c.libele like '%" + searchText + "%' OR c.description like '%" + searchText + "%'  ORDER BY c.code DESC";
 
         Query q = em.createQuery(requete);
 
