@@ -37,8 +37,11 @@ public class ArticleRessource {
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Article> getArticles() {
-
+    public List<Article> getArticles(@QueryParam("start") int start,
+                                      @QueryParam("size") int size ){
+        if(start > 0 && size > 0) {
+            articleFacade.getAllArticlePaginated(start, size);
+        }
         return articleFacade.findAll();
     }
 
