@@ -95,5 +95,15 @@ public class FactureRessource {
     public List<Facture> findFactureByClient(@QueryParam("text") String searchText) {
         return factureFacade.findFactureByCLientName(searchText);
     }
+    
+            /**
+     * ************* Search category based on Client Name  *********************** *
+     */
+    @GET
+    @Path("/searchByDate")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Facture> findFactureByDate(@QueryParam("start") String start,@QueryParam("end") String end) {
+        return factureFacade.findFactureByIntervalleDate(start, end);
+    }
 
 }

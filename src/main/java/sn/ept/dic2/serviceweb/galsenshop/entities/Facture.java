@@ -6,13 +6,19 @@ package sn.ept.dic2.serviceweb.galsenshop.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -28,18 +34,49 @@ public class Facture implements Serializable {
     private Integer numero;
     @Temporal(TemporalType.TIMESTAMP)  //2001-02-16 20:38:40
     private Date date ;
-    @ManyToOne
+    
+    @Column(nullable = false)
+    private Integer cientId;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cientId", nullable = false, updatable = false,insertable = false)
     private Client client;
+    
+    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    private Set<LigneArticle> ligneArticles = new HashSet<>();
 
-    public Facture(Integer numero, Date date, Client client) {
+    public Facture(Integer numero, Date date, Integer cientId, Client client) {
         this.numero = numero;
         this.date = date;
+        this.cientId = cientId;
         this.client = client;
     }
+    
+
 
     public Facture() {
     }
 
+   
+
+    public Set<LigneArticle> getLigneArticles() {
+        return ligneArticles;
+    }
+
+    public void setLigneArticles(Set<LigneArticle> ligneArticles) {
+        this.ligneArticles = ligneArticles;
+    }
+
+    public Integer getCientId() {
+        return cientId;
+    }
+
+    public void setCientId(Integer cientId) {
+        this.cientId = cientId;
+    }
+
+    
+    
     public Integer getNumero() {
         return numero;
     }

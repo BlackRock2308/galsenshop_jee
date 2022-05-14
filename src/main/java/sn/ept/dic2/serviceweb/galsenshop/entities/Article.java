@@ -5,13 +5,17 @@
 package sn.ept.dic2.serviceweb.galsenshop.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -37,6 +41,9 @@ public class Article implements Serializable {
     @ManyToOne
     @JoinColumn(name = "categorie_code", insertable = false, updatable = false)
     private Categorie categorie;
+    
+    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    private Set<LigneArticle> ligneArticles = new HashSet<>();
 
     public Article(String code, String libele, String description, Double prix_unitaire, String unite, Double quantite_stock) {
         this.code = code;

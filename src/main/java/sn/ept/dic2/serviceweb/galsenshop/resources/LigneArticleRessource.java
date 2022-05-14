@@ -17,8 +17,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import sn.ept.dic2.serviceweb.galsenshop.entities.Article;
 import sn.ept.dic2.serviceweb.galsenshop.entities.Facture;
 import sn.ept.dic2.serviceweb.galsenshop.entities.LigneArticle;
+import sn.ept.dic2.serviceweb.galsenshop.facades.ArticleFacade;
 import sn.ept.dic2.serviceweb.galsenshop.facades.LigneArticleFacade;
 
 /**
@@ -30,6 +32,8 @@ public class LigneArticleRessource {
     
     @EJB
     private LigneArticleFacade ligneArticleFacade;
+    @EJB
+    private ArticleFacade articleFacade;
     
     
     /**
@@ -64,7 +68,12 @@ public class LigneArticleRessource {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public LigneArticle createOrder(LigneArticle c) {
         System.out.println("createFacture " + c);
+        Article updatedArticle = articleFacade.find(c.getIdArticle());
+        //diminuer le stock à chaque fois qu'on passe une ligne de Article
+        updatedArticle.setQuantite_stock(updatedArticle.getQuantite_stock() - c.getQuantite());
         ligneArticleFacade.create(c);
+        articleFacade.edit(updatedArticle);
+        System.out.println("My updated article is: " + updatedArticle);
         return c;
     }
 

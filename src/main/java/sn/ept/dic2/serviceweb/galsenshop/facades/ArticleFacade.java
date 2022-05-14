@@ -4,6 +4,7 @@
  */
 package sn.ept.dic2.serviceweb.galsenshop.facades;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,11 +31,10 @@ public class ArticleFacade extends AbstractFacade<Article> {
     public ArticleFacade() {
         super(Article.class);
     }
-    
-        public List<Article> findArticle(String searchText) {
+
+    public List<Article> findArticle(String searchText) {
 
         // http://localhost:8080/galsenshop/api/categories/search?text=searchText
-        
         String requete = "SELECT a FROM Article a WHERE a.libele like '%" + searchText + "%' OR a.description like '%" + searchText + "%' ORDER BY a.code DESC";
 
         Query q = em.createQuery(requete);
@@ -42,5 +42,17 @@ public class ArticleFacade extends AbstractFacade<Article> {
         return q.getResultList();
 
     }
-    
+
+    public List<Article> getAllArticlePaginated(int start, int size) {
+    String requete = "SELECT * FROM Article";
+    Query q = em.createQuery(requete);
+    List<Article> articles = new ArrayList<Article>();
+    articles = q.getResultList();
+        if (start + size > articles.size()) {
+            return new ArrayList<Article>();
+        }
+        System.out.println(articles);
+        return articles.subList(start, start + size);
+    }
+
 }
