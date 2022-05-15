@@ -6,11 +6,14 @@ package sn.ept.dic2.serviceweb.galsenshop.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -31,8 +34,9 @@ public class Categorie implements Serializable {
     private String description;
     @Column(name = "TVA")
     private Double tva;
-    @OneToMany(mappedBy = "categorie", fetch = FetchType.LAZY)
-    private Collection<Article> articles;
+    @OneToMany
+    @JoinColumn(name = "categorie_code") // we need to duplicate the physical
+    private Set<Article> articles= new HashSet<>();
 
     public Categorie() {
     }
@@ -60,15 +64,16 @@ public class Categorie implements Serializable {
             System.out.println("La TVA est initialie a : " +tva);
         }
     }
-    
-    
-    public Collection<Article> getArticles() {
+
+    public Set<Article> getArticles() {
         return articles;
     }
 
-    public void setArticles(Collection<Article> articles) {
+    public void setArticles(Set<Article> articles) {
         this.articles = articles;
     }
+    
+    
 
    
 

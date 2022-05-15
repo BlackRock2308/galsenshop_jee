@@ -4,9 +4,13 @@
  */
 package sn.ept.dic2.serviceweb.galsenshop.entities;
 
+import com.sun.mail.handlers.handler_base;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,19 +32,19 @@ public class Client implements Serializable {
     @Column(name = "NOM", length = 45)
     private String nom;
     @Column(name = "ADRESSE", length = 45)
-    private String Adresse;
+    private String adresse;
     @Column(name = "TELEPHONE", length = 45)
     private String telephone;
     
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    private Collection<Facture> factures;
+    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    private Set<Facture> factures = new HashSet<>();
 
-    public Client(Integer id, String nom, String Adresse, String telephone, Collection<Facture> factures) {
+    public Client(Integer id, String nom, String adresse, String telephone) {
         this.id = id;
         this.nom = nom;
-        this.Adresse = Adresse;
+        this.adresse = adresse;
         this.telephone = telephone;
-        this.factures = factures;
+        
     }
 
     public Client() {
@@ -63,11 +67,11 @@ public class Client implements Serializable {
     }
 
     public String getAdresse() {
-        return Adresse;
+        return adresse;
     }
 
-    public void setAdresse(String Adresse) {
-        this.Adresse = Adresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getTelephone() {
@@ -78,13 +82,15 @@ public class Client implements Serializable {
         this.telephone = telephone;
     }
 
-    public Collection<Facture> getFactures() {
+    public Set<Facture> getFactures() {
         return factures;
     }
 
-    public void setFactures(Collection<Facture> factures) {
+    public void setFactures(Set<Facture> factures) {
         this.factures = factures;
     }
+
+  
 
     @Override
     public int hashCode() {
@@ -118,7 +124,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", nom=" + nom + ", Adresse=" + Adresse + ", telephone=" + telephone + ", factures=" + factures + '}';
+        return "Client{" + "id=" + id + ", nom=" + nom + ", Adresse=" + adresse + ", telephone=" + telephone + ", factures=" + factures + '}';
     }
     
     

@@ -9,9 +9,11 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
@@ -22,31 +24,77 @@ import javax.persistence.MapsId;
 @Entity
 public class LigneArticle implements Serializable {
 
-    @EmbeddedId
-    private LigneArticlePK articlePK;
-    
-    @ManyToOne
-    @MapsId("idArticle")
-    private Article article;
-    
-    @ManyToOne
-    @MapsId("idFacture")
-    private Facture facture;
-    
+    @Id
+    private String articlePK;
+
     @Column(name = "QUANTITE")
     private Double quantite;
+    
+    @Column(name = "ARTICLE_ID", nullable = false, length = 5)
+    private String idArticle;
+    
+    @Column(name = "FACTURE_ID",nullable = false)
+    private Integer idFacture;
 
-    public LigneArticlePK getArticlePK() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = true, updatable = false,insertable = false)
+    //@MapsId("idFacture")
+    private Facture facture;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    //@MapsId("idFacture")
+    @JoinColumn(nullable = true, updatable = false,insertable = false)
+    private Article article;
+
+    public LigneArticle(String articlePK, Double quantite, Integer idFacture, String idArticle, Facture facture, Article article) {
+        this.articlePK = articlePK;
+        this.quantite = quantite;
+        this.idFacture = idFacture;
+        this.idArticle = idArticle;
+        this.facture = facture;
+        this.article = article;
+    }
+
+    
+
+    
+
+    public LigneArticle() {
+    }
+
+    public String getArticlePK() {
         return articlePK;
     }
 
-    public void setArticlePK(LigneArticlePK articlePK) {
+    public void setArticlePK(String articlePK) {
         this.articlePK = articlePK;
     }
+
+    public Integer getIdFacture() {
+        return idFacture;
+    }
+
+    public void setIdFacture(Integer idFacture) {
+        this.idFacture = idFacture;
+    }
+
+    public String getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(String idArticle) {
+        this.idArticle = idArticle;
+    }
+
+   
 
     public Article getArticle() {
         return article;
     }
+
+  
+  
+    
 
     public void setArticle(Article article) {
         this.article = article;
@@ -104,14 +152,11 @@ public class LigneArticle implements Serializable {
 
     @Override
     public String toString() {
-        return "LigneArticle{" 
-                + "articlePK=" + articlePK 
-                + ", article=" + article 
-                + ", facture=" + facture 
+        return "LigneArticle{"
+                + "articlePK=" + articlePK
+                + ", article=" + article
+                + ", facture=" + facture
                 + ", quantite=" + quantite + '}';
     }
-    
-    
-    
-    
+
 }
